@@ -11,3 +11,60 @@ CREATE TABLE CategoriaArticulo (
 IDCat BIGINT NOT NULL PRIMARY KEY IDENTITY (1000000, 1),
 DescripcionCat VARCHAR (50) NOT NULL UNIQUE
 );
+
+GO
+
+CREATE TABLE Estado (
+IDEstado INT NOT NULL PRIMARY KEY IDENTITY (1, 1),
+Descripcion VARCHAR (50) NOT NULL UNIQUE
+);
+
+GO
+
+CREATE TABLE Presupuestos (
+IDPresupuesto BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
+Descripcion VARCHAR (255),
+Precio MONEY NOT NULL CHECK (Precio > 0)
+);
+
+GO
+
+CREATE TABLE Clientes (
+IDCliente BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
+Nombre VARCHAR (100) NOT NULL,
+Apellido VARCHAR (100),
+CuilCuit VARCHAR (10) NOT NULL UNIQUE, 
+Telefono VARCHAR (50)
+);
+
+GO
+
+CREATE TABLE Empleados (
+IDEmpleado BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
+Nombre VARCHAR (100) NOT NULL,
+Apellido VARCHAR (100) NOT NULL
+);
+
+
+GO
+-- IDEmpleado Y IDPresupuesto permite nulo porque puede que a la hora del registro no esté asignado uno
+CREATE TABLE Reparaciones (
+IDReparacion BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
+IDCliente BIGINT NOT NULL FOREIGN KEY REFERENCES Clientes (IDCliente),
+IDEmpleado BIGINT FOREIGN KEY REFERENCES Empleados (IDEmpleado),
+IDCat BIGINT NOT NULL FOREIGN KEY REFERENCES CategoriaArticulo (IDCat),
+IDEstado INT NOT NULL FOREIGN KEY REFERENCES Estado (IDEstado),
+IDPresupuesto BIGINT FOREIGN KEY REFERENCES Presupuestos (IDPresupuesto),
+FechaIngreso DATE NOT NULL,
+FechaFinalizacion DATE,
+Descripcion VARCHAR (1000)
+);
+
+GO
+
+CREATE TABLE Facturas (
+IDFactura BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
+IDReparacion BIGINT NOT NULL FOREIGN KEY REFERENCES Reparaciones (IDReparacion),
+FechaEmision DATE NOT NULL,
+NumFactura VARCHAR (255) NOT NULL UNIQUE
+);
