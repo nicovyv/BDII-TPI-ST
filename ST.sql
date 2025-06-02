@@ -8,7 +8,7 @@ USE SERV_TEC_DB
 GO
 
 CREATE TABLE CategoriaArticulo (
-IDCat BIGINT NOT NULL PRIMARY KEY IDENTITY (1000000, 1),
+IDCat BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
 DescripcionCat VARCHAR (50) NOT NULL UNIQUE
 );
 
@@ -49,7 +49,7 @@ Apellido VARCHAR (100) NOT NULL
 GO
 -- IDEmpleado Y IDPresupuesto permite nulo porque puede que a la hora del registro no esté asignado uno
 CREATE TABLE Reparaciones (
-IDReparacion BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
+IDReparacion BIGINT NOT NULL PRIMARY KEY IDENTITY (1000000, 1),
 IDCliente BIGINT NOT NULL FOREIGN KEY REFERENCES Clientes (IDCliente),
 IDEmpleado BIGINT FOREIGN KEY REFERENCES Empleados (IDEmpleado),
 IDCat BIGINT NOT NULL FOREIGN KEY REFERENCES CategoriaArticulo (IDCat),
