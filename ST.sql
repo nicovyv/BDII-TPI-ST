@@ -24,8 +24,16 @@ GO
 CREATE TABLE Presupuestos (
 IDPresupuesto BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
 Descripcion VARCHAR (255),
-Precio MONEY NOT NULL CHECK (Precio > 0)
+Precio MONEY NOT NULL CHECK (Precio > 0),
+IDReparacion BIGINT NOT NULL,
+CONSTRAINT FK_PRESUPUESTOS_REPARACIONES FOREIGN KEY (IDReparacion) REFERENCES Reparaciones (IDReparacion)
 );
+
+GO
+
+ALTER TABLE Presupuestos
+ADD Aceptado BIT NOT NULL DEFAULT 0;
+
 
 GO
 
@@ -54,11 +62,12 @@ IDCliente BIGINT NOT NULL FOREIGN KEY REFERENCES Clientes (IDCliente),
 IDEmpleado BIGINT FOREIGN KEY REFERENCES Empleados (IDEmpleado),
 IDCat BIGINT NOT NULL FOREIGN KEY REFERENCES CategoriaArticulo (IDCat),
 IDEstado INT NOT NULL FOREIGN KEY REFERENCES Estado (IDEstado),
-IDPresupuesto BIGINT FOREIGN KEY REFERENCES Presupuestos (IDPresupuesto),
 FechaIngreso DATE NOT NULL,
 FechaFinalizacion DATE,
 Descripcion VARCHAR (1000)
 );
+
+
 
 GO
 
