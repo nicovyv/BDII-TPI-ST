@@ -47,11 +47,21 @@ Telefono VARCHAR (50)
 
 GO
 
+ALTER TABLE Clientes
+DROP COLUMN Apellido;
+
+GO
+
 CREATE TABLE Empleados (
 IDEmpleado BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
 Nombre VARCHAR (100) NOT NULL,
 Apellido VARCHAR (100) NOT NULL
 );
+
+GO
+
+ALTER TABLE Empleados
+DROP COLUMN Apellido;
 
 
 GO
