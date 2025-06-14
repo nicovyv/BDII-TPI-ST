@@ -50,6 +50,11 @@ GO
 ALTER TABLE Clientes
 DROP COLUMN Apellido;
 
+GO 
+
+ALTER TABLE Clientes
+ALTER COLUMN CuilCuit VARCHAR(11) NOT NULL;
+
 GO
 
 CREATE TABLE Empleados (
@@ -59,9 +64,8 @@ Apellido VARCHAR (100) NOT NULL
 );
 
 GO
-
 ALTER TABLE Empleados
-DROP COLUMN Apellido;
+ADD Apellido VARCHAR(100) NOT NULL;
 
 
 GO
