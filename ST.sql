@@ -25,6 +25,7 @@ CREATE TABLE Presupuestos (
 IDPresupuesto BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
 Descripcion VARCHAR (255),
 Precio MONEY NOT NULL CHECK (Precio > 0),
+Aprobado BIT NOT NULL,
 IDReparacion BIGINT NOT NULL,
 CONSTRAINT FK_PRESUPUESTOS_REPARACIONES FOREIGN KEY (IDReparacion) REFERENCES Reparaciones (IDReparacion)
 );
@@ -69,7 +70,7 @@ ADD Apellido VARCHAR(100) NOT NULL;
 
 
 GO
--- IDEmpleado Y IDPresupuesto permite nulo porque puede que a la hora del registro no esté asignado uno
+-- IDEmpleado Y IDPresupuesto permite nulo porque puede que a la hora del registro no estï¿½ asignado uno
 CREATE TABLE Reparaciones (
 IDReparacion BIGINT NOT NULL PRIMARY KEY IDENTITY (1000000, 1),
 IDCliente BIGINT NOT NULL FOREIGN KEY REFERENCES Clientes (IDCliente),
