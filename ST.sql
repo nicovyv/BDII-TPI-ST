@@ -21,22 +21,7 @@ Descripcion VARCHAR (50) NOT NULL UNIQUE
 
 GO
 
-CREATE TABLE Presupuestos (
-IDPresupuesto BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
-Descripcion VARCHAR (255),
-Precio MONEY NOT NULL CHECK (Precio > 0),
-Aprobado BIT NOT NULL,
-IDReparacion BIGINT NOT NULL,
-CONSTRAINT FK_PRESUPUESTOS_REPARACIONES FOREIGN KEY (IDReparacion) REFERENCES Reparaciones (IDReparacion)
-);
 
-GO
-
-ALTER TABLE Presupuestos
-ADD Aceptado BIT NOT NULL DEFAULT 0;
-
-
-GO
 
 CREATE TABLE Clientes (
 IDCliente BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
@@ -65,11 +50,7 @@ Apellido VARCHAR (100) NOT NULL
 );
 
 GO
-ALTER TABLE Empleados
-ADD Apellido VARCHAR(100) NOT NULL;
 
-
-GO
 -- IDEmpleado Y IDPresupuesto permite nulo porque puede que a la hora del registro no est� asignado uno
 CREATE TABLE Reparaciones (
 IDReparacion BIGINT NOT NULL PRIMARY KEY IDENTITY (1000000, 1),
@@ -82,10 +63,23 @@ FechaFinalizacion DATE,
 Descripcion VARCHAR (1000)
 );
 
-
+GO
+CREATE TABLE Presupuestos (
+IDPresupuesto BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
+Descripcion VARCHAR (255),
+Precio MONEY NOT NULL CHECK (Precio > 0),
+Aprobado BIT NOT NULL,
+IDReparacion BIGINT NOT NULL,
+CONSTRAINT FK_PRESUPUESTOS_REPARACIONES FOREIGN KEY (IDReparacion) REFERENCES Reparaciones (IDReparacion)
+);
 
 GO
 
+ALTER TABLE Presupuestos
+ADD Aceptado BIT NOT NULL DEFAULT 0;
+
+
+GO
 CREATE TABLE Facturas (
 IDFactura BIGINT NOT NULL PRIMARY KEY IDENTITY (1, 1),
 IDReparacion BIGINT NOT NULL FOREIGN KEY REFERENCES Reparaciones (IDReparacion),
