@@ -35,14 +35,14 @@ GO
 INSERT INTO Reparaciones (IDCliente, IDEmpleado, IDCat, IDEstado, FechaIngreso, Descripcion) VALUES 
 (1, 1, 1, 1, '2025-06-01', 'Pantalla rota, no enciende'),
 (2, 2, 2, 2, '2025-06-03', 'No inicia el sistema operativo'),
-(3, NULL, 3, 1, '2025-06-05', 'Fuente dañada, necesita reemplazo');
+(3, NULL, 3, 1, '2025-06-05', 'Fuente daï¿½ada, necesita reemplazo');
 
 GO
 
 INSERT INTO Presupuestos (Descripcion, Precio, IDReparacion, Aceptado) VALUES 
-('Reemplazo de pantalla y revisión general', 25000, 1000000, 0),
-('Formateo completo y reinstalación de sistema', 15000, 1000001, 1),
-('Cambio de fuente de alimentación ATX 600W', 18000, 1000002, 0);
+('Reemplazo de pantalla y revisiï¿½n general', 25000, 1000000, 0),
+('Formateo completo y reinstalaciï¿½n de sistema', 15000, 1000001, 1),
+('Cambio de fuente de alimentaciï¿½n ATX 600W', 18000, 1000002, 0);
 
 GO
 
