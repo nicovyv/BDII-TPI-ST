@@ -36,3 +36,14 @@ BEGIN
 		END
 	END
 END;
+
+GO
+
+CREATE TRIGGER tr_Eliminar_Empleado ON Empleados
+INSTEAD OF DELETE
+AS
+BEGIN
+	UPDATE Empleados SET Activo = 0 WHERE IDEmpleado IN (SELECT IDEmpleado FROM deleted);
+END;
+
+GO
