@@ -51,3 +51,51 @@ BEGIN CATCH
 END CATCH
 
 END
+
+GO
+
+---------------------------------------------------------------------------
+--Realizar un procedimiento almacenado que llamado sp_Insertar_Presupuesto que se encargue de registrar presupuestos.
+--El SP, recibe todos los datos necesarios para generar el presupuesto. Si se quiere registrar un presupuesto con "Aceptado = 1" 
+-- y ya existe un presupuesto Aceptado para la reparacion especificada, se le asigna "Aceptado = 0" al Presupuesto actual y luego se asigna 
+--el nuevo presupuesto a dicha reparacion. En caso de registrar un presupuesto con "Aceptado = 0", simplemente lo registra
+--en la tabla Presupuestos.
+
+CREATE OR ALTER PROCEDURE sp_Insertar_Presupuesto (
+    @Descripcion VARCHAR(255),
+    @Precio MONEY,
+    @Aceptado BIT,
+    @IDReparacion BIGINT
+)
+AS
+BEGIN
+
+    IF NOT EXISTS(SELECT 1 FROM Reparaciones WHERE IDReparacion = @IDReparacion)
+    BEGIN
+        RAISERROR('ERROR: NO EXISTE UNA REPARACION CON ESE ID.', 16, 1)
+        return;
+    END
+
+    IF(@Precio <= 0 OR @Precio IS NULL)
+    BEGIN
+        RAISERROR('ERROR: SE DEBE INGRESAR UN PRECIO VÁLIDO.', 16, 1);
+        return;
+    END
+
+    BEGIN TRY
+        BEGIN TRANSACTION
+            IF EXISTS(SELECT 1 FROM Presupuestos WHERE IDReparacion = @IDReparacion) AND @Aceptado = 1
+            BEGIN
+                UPDATE Presupuestos SET Aceptado = 0 WHERE IDReparacion = @IDReparacion
+            END
+
+            INSERT Presupuestos (Descripcion, Precio, Aceptado, IDReparacion) 
+            VALUES (@Descripcion, @Precio, @Aceptado, @IDReparacion)
+            PRINT 'PRESUPUESTO AGREGADO CORRECTAMENTE';
+        COMMIT TRANSACTION
+    END TRY
+    BEGIN CATCH
+            ROLLBACK TRANSACTION;
+            PRINT ERROR_MESSAGE();
+    END CATCH
+END
