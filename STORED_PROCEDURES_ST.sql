@@ -59,7 +59,7 @@ GO
 --El SP, recibe todos los datos necesarios para generar el presupuesto. Si se quiere registrar un presupuesto con "Aceptado = 1" 
 -- y ya existe un presupuesto Aceptado para la reparacion especificada, se le asigna "Aceptado = 0" al Presupuesto actual y luego se asigna 
 --el nuevo presupuesto a dicha reparacion. En caso de registrar un presupuesto con "Aceptado = 0", simplemente lo registra
---en la tabla Presupuestos.
+--en la tabla Presupuestos. Ademas actualiza el estado de la reparacion a "Presupuestado (ID = 3)"
 
 CREATE OR ALTER PROCEDURE sp_Insertar_Presupuesto (
     @Descripcion VARCHAR(255),
@@ -84,11 +84,14 @@ BEGIN
 
     BEGIN TRY
         BEGIN TRANSACTION
-            IF EXISTS(SELECT 1 FROM Presupuestos WHERE IDReparacion = @IDReparacion) AND @Aceptado = 1
+            IF EXISTS(SELECT 1 FROM Presupuestos WHERE IDReparacion = @IDReparacion AND Aceptado = 1) AND @Aceptado = 1
             BEGIN
-                UPDATE Presupuestos SET Aceptado = 0 WHERE IDReparacion = @IDReparacion
+                UPDATE Presupuestos SET Aceptado = 0 WHERE IDReparacion = @IDReparacion AND Aceptado = 1
             END
-
+            IF (@Aceptado = 1)
+            BEGIN
+                UPDATE Reparaciones SET IDEstado = 3 WHERE IDReparacion = @IDReparacion            
+            END
             INSERT Presupuestos (Descripcion, Precio, Aceptado, IDReparacion) 
             VALUES (@Descripcion, @Precio, @Aceptado, @IDReparacion)
             PRINT 'PRESUPUESTO AGREGADO CORRECTAMENTE';
