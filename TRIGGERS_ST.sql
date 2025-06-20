@@ -47,3 +47,39 @@ BEGIN
 END;
 
 GO
+
+
+
+CREATE TRIGGER tr_Actualizar_Estado_Asignado ON Reparaciones -- DECLARACION TRIGGER
+AFTER UPDATE -- AFTER UPDATE, SE DISPARA DESPUES DE ASIGNARSE UN EMPLEADO A LA TABLA REPARACIONES
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN TRANSACTION -- INICIO TRANSACCION
+			
+			DECLARE @IDReparacion BIGINT --DECLARACION DE VARIABLES
+			DECLARE @IDEstado INT
+			DECLARE @EstadoAnterior INT
+			DECLARE @IDEmpleado BIGINT
+
+			SELECT @IDReparacion = I.IDReparacion, -- ASIGNACION DE VARIABLES CON LAS TABLAS INSERTED Y DELETED
+					@IDEstado = I.IDEstado,
+					@EstadoAnterior = D.IDEstado,
+					@IDEmpleado = I.IDEmpleado
+					FROM INSERTED I
+					INNER JOIN DELETED D  ON I.IDReparacion = D.IDReparacion;
+
+			   IF (@IDEmpleado IS NOT NULL AND @IDEstado <> 4) -- SI EL EMPLEADO YA NO ES NULL Y EL ESTADO ES DISTINTO DE 4 (ASIGNADO)
+            BEGIN
+                UPDATE Reparaciones  -- ACTUALIZACION DEL ESTADO EN EL IDREPARACION CORRESPONDIENTE
+                SET IDEstado = 4
+                WHERE IDReparacion = @IDReparacion;
+            END
+		COMMIT TRANSACTION   -- COMMIT
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION -- ROLLBACK Y MENSAJE DE ERROR
+			RAISERROR ('Ocurrio un error al cambiar de estado la reparación a ASIGNADO', 16, 1)
+	END CATCH
+
+END
