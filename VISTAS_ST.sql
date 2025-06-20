@@ -35,3 +35,33 @@ GO
 --consultar vista facturacion por cliente
 SELECT * FROM VW_FacturacionPorCliente
 GO
+
+--crear vista Reparaciones sin empleado asignado.
+CREATE VIEW VW_Reparaciones_SinEmpleado
+AS
+SELECT 
+    R.IDReparacion Id,
+    R.Descripcion,
+    CA.DescripcionCat Categoria, 
+    C.Nombre Cliente, 
+    C.Telefono 'Tel. cliente', 
+    CASE 
+        WHEN E.IDEmpleado IS NULL THEN 'SIN ASIGNAR'
+        ELSE CONCAT(E.Nombre, ' ', E.Apellido)
+    END AS Empleado, 
+    ES.Descripcion Estado, 
+    R.FechaIngreso, 
+    R.FechaFinalizacion, 
+    E.Nombre
+FROM Reparaciones R
+INNER JOIN Presupuestos P ON R.IDReparacion = P.IDReparacion
+INNER JOIN Clientes C ON R.IDCliente = C.IDCliente
+LEFT JOIN Empleados E ON R.IDEmpleado = E.IDEmpleado
+INNER JOIN CategoriaArticulo CA ON R.IDCat = CA.IDCat
+INNER JOIN Estado ES ON R.IDEstado = ES.IDEstado
+WHERE R.IDEmpleado IS NULL;
+GO
+
+--consultar vista Reparaciones sin empleado asignado
+SELECT * FROM vw_Reparaciones_SinEmpleado;
+GO
