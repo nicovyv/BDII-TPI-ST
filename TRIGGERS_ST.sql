@@ -59,12 +59,10 @@ BEGIN
 			
 			DECLARE @IDReparacion BIGINT --DECLARACION DE VARIABLES
 			DECLARE @IDEstado INT
-			DECLARE @EstadoAnterior INT
 			DECLARE @IDEmpleado BIGINT
 
 			SELECT @IDReparacion = I.IDReparacion, -- ASIGNACION DE VARIABLES CON LAS TABLAS INSERTED Y DELETED
 					@IDEstado = I.IDEstado,
-					@EstadoAnterior = D.IDEstado,
 					@IDEmpleado = I.IDEmpleado
 					FROM INSERTED I
 					INNER JOIN DELETED D  ON I.IDReparacion = D.IDReparacion;
