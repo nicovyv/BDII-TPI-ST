@@ -1,5 +1,7 @@
 -- crear vista reparaciones en curso
-CREATE VIEW VW_ReparacionesEnCurso AS
+USE SERV_TEC_DB
+
+ALTER VIEW VW_ReparacionesEnCurso AS
 
 SELECT
 	R.IDReparacion,
@@ -8,8 +10,7 @@ SELECT
 	R.FechaIngreso,
 	P.Precio AS [Presupuesto Aceptado],
 	Em.Nombre + ' ' + Em.Apellido AS [Empleado Asignado],
-	Es.Descripcion as Estado,
-	R.FechaFinalizacion
+	Es.Descripcion as Estado
 
 FROM Reparaciones R
 INNER JOIN Clientes C ON R.IDCliente = C.IDCliente
