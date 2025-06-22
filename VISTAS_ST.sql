@@ -65,3 +65,12 @@ GO
 --consultar vista Reparaciones sin empleado asignado
 SELECT * FROM vw_Reparaciones_SinEmpleado;
 GO
+
+--CREAR VISTA PARA GENERAR REPORTE DE LAS REPARACIONES QUE LLEVA UN EMPLEADO EN EL MES
+CREATE OR ALTER VIEW VW_ReparacionesEmpleadoDelMes
+AS
+SELECT
+NOMBRE,
+APELLIDO,
+dbo.FN_CantidadReparacionesEmpleadoXMes(E.IDEmpleado,MONTH(GETDATE()))AS ReparacionesXEmpleadoXMes
+FROM Empleados AS E
