@@ -26,9 +26,17 @@ INSERT INTO Clientes (Nombre, CuilCuit, Telefono) VALUES
 
 GO
 
-INSERT INTO Empleados (Nombre, Apellido) VALUES 
-('Luis', 'Fernandez'),
-('Ana', 'Martinez');
+INSERT INTO Empleados (Nombre, Apellido,Activo) VALUES 
+('Luis', 'Fernandez',1),
+('Ana', 'Martinez',0),
+('Camila', 'Sánchez', 1),
+('Andrés', 'Ruiz', 0),
+('Valeria', 'Morales', 1),
+('Nicolás', 'Herrera', 1),
+('Paula', 'Romero', 1),
+('Gonzalo', 'Pereyra', 1),
+('Elena', 'Vega', 0),
+('Tomás', 'Silva', 1);
 
 GO
 
