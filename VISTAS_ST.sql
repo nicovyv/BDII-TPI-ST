@@ -74,3 +74,19 @@ NOMBRE,
 APELLIDO,
 dbo.FN_CantidadReparacionesEmpleadoXMes(E.IDEmpleado,MONTH(GETDATE()))AS ReparacionesXEmpleadoXMes
 FROM Empleados AS E
+GO
+--CREAR VISTA PARA GENERAR REPORTE CON NOMBRE Y APELLIDO DEL EMPLEADO,
+-- CANTIDAD DE REPARACIONES EN ESTADO 'COMPLETADO' Y EL MES
+CREATE VIEW VW_CantidadReparacionesXMesDelEmpleado
+AS
+SELECT E.NOMBRE,E.APELLIDO,
+COUNT(R.IDReparacion) AS CANT_REPARACIONES,
+MONTH(R.FechaIngreso) AS MES
+FROM Empleados E
+INNER JOIN Reparaciones R
+ON E.IDEmpleado=R.IDEmpleado
+INNER JOIN Estado ES 
+ON R.IDEstado=ES.IDEstado
+WHERE E.Activo=1 AND ES.Descripcion='COMPLETADO'
+GROUP BY E.Nombre,E.Apellido,MONTH(R.FechaIngreso);
+GO
