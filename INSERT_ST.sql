@@ -19,20 +19,20 @@ INSERT INTO CategoriaArticulo (DescripcionCat) VALUES
 
 GO
 
-INSERT INTO Clientes (Nombre, CuilCuit, Telefono) VALUES 
-('Liones Messi', '20333444558', '1133344455'),
-('Lionel Scaloni', '27355667789', '1122233344'),
-('Emiliano Martinez', '20999888770', '1155566677'),
-('Juan Pérez', '20123456789', '1123456789'),
-('Ana Gómez', '27234567890', '1134567890'),
-('Carlos López', '20345678901', '1145678901'),
-('Laura Fernández', '27456789012', '1156789012'),
-('Miguel Torres', '20567890123', '1167890123'),
-('Lucía Ramos', '27678901234', '1178901234'),
-('Roberto Díaz', '20789012345', '1189012345'),
-('Sofía Méndez', '27890123456', '1190123456'),
-('Diego Suárez', '20901234567', '1101234567'),
-('Florencia Moreyra', '27123456780', '1112345678');
+INSERT INTO Clientes (Nombre, Apellido,CuilCuit, Telefono) VALUES 
+('Liones', 'Messi', '20333444558', '1133344455'),
+('Lionel','Scaloni', '27355667789', '1122233344'),
+('Emiliano', 'Martinez', '20999888770', '1155566677'),
+('Juan', 'Pérez', '20123456789', '1123456789'),
+('Ana', 'Gómez', '27234567890', '1134567890'),
+('Carlos', 'López', '20345678901', '1145678901'),
+('Laura', 'Fernández', '27456789012', '1156789012'),
+('Miguel', 'Torres', '20567890123', '1167890123'),
+('Lucía','Ramos', '27678901234', '1178901234'),
+('Roberto', 'Díaz', '20789012345', '1189012345'),
+('Sofía', 'Méndez', '27890123456', '1190123456'),
+('Diego', 'Suárez', '20901234567', '1101234567'),
+('Florencia', 'Moreyra', '27123456780', '1112345678');
 
 GO
 
