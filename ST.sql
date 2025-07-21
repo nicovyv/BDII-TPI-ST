@@ -53,6 +53,7 @@ IDEstado INT NOT NULL FOREIGN KEY REFERENCES Estado (IDEstado),
 FechaIngreso DATE NOT NULL,
 FechaFinalizacion DATE,
 Descripcion VARCHAR (1000)
+CONSTRAINT validar_fechaFinalización CHECK (FechaFinalizacion IS NULL OR FechaFinalizacion > FechaIngreso)
 );
 
 GO
