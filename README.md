@@ -75,7 +75,7 @@ Para desplegar la base de datos correctamente en tu entorno local, es **fundamen
 
 ## Acerca del Proyecto y el equipo 
 
-Este sistema fue desarrollado como proyecto integrador para la materia **Base de Datos II** de la Tecnicatura Universitaria en Programación (UTN). El objetivo fue aplicar conocimientos  de T-SQL, simulando un entorno con requerimientos reales de negocio y trabajo colaborativo.
+Este sistema fue desarrollado como proyecto integrador para la materia **Base de Datos II** de la Tecnicatura Universitaria en Programación (UTN FRGP). El objetivo fue aplicar conocimientos  de T-SQL, simulando un entorno con requerimientos reales de negocio y trabajo colaborativo.
 
 **Equipo:**
 * **Nicolas Zabala** 
